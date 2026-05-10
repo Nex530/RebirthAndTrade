@@ -13,15 +13,13 @@ namespace RebirthAndTrade.Data
     {
         private string name;
         private int money;
-        private int diamonds;
         private List<Animal> OwnedAnimals = new List<Animal>();
         private RebirthType curRebirth;
         private double multiplierM=1;
-        public Player(string inputName, int inputMoney, int inputDiamonds)
+        public Player(string inputName, int inputMoney)
         {
             name = inputName;
             money = inputMoney < 0 ? 0 : inputMoney;
-            diamonds = inputDiamonds < 0 ? 0 : inputDiamonds;
             curRebirth = RebirthType.rookie;
         }
 
@@ -29,7 +27,6 @@ namespace RebirthAndTrade.Data
         {
             if (curRebirth == RebirthType.sensei) return;
             money = 0;
-            diamonds = 0;
             switch (curRebirth)
             {
                 case RebirthType.rookie:
@@ -71,9 +68,15 @@ namespace RebirthAndTrade.Data
         {
             OwnedAnimals.Add(animal);
         }
+
+        public void removeAnimal(int index)
+        {
+            OwnedAnimals.RemoveAt(index);
+        }
+
         public void Print()
         {
-            Console.Write("Player " + name + " has " + money + " money , " + multiplierM+" multiplier, "+ diamonds + " diamonds and current rebirth " + curRebirth);
+            Console.Write("Player " + name + " has " + money + " money , " + multiplierM+" multiplier, and current rebirth is " + curRebirth);
             if (OwnedAnimals.Count != 0)
             {
                 Console.WriteLine(". And animals: ");
@@ -84,5 +87,7 @@ namespace RebirthAndTrade.Data
             }
             Console.WriteLine("\n");
         }
+        public string getName() { return name; }
+        public List<Animal> GetAnimals() { return OwnedAnimals; }
     }
 }

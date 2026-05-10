@@ -14,10 +14,9 @@ namespace RebirthAndTrade.Data
         //private double multiplierD = 1;
         private double multiplierPetPrice = 1;
         private AnimalBodyType bodyType;
-        private int basePriceMoney;
-        //private int basePriceDiamonds;
+        private int basePrice;
         private bool isShiny;
-
+        public Animal() { }
         public Animal(string inputBodyType, int inputBasePrice, bool inputShiny)
         {
             switch (inputBodyType.ToLower())
@@ -59,8 +58,8 @@ namespace RebirthAndTrade.Data
                     break;
             }
 
-            this.basePriceMoney = inputBasePrice < 0 ? 0 : inputBasePrice;
-            if (basePriceMoney < 0)
+            this.basePrice = inputBasePrice < 0 ? 0 : inputBasePrice;
+            if (basePrice < 0)
             {
                 Console.WriteLine("Animal price cannot be negative.");
             }
@@ -69,9 +68,14 @@ namespace RebirthAndTrade.Data
             this.multiplierPetPrice = isShiny ? multiplierPetPrice * multiplierPetPrice : multiplierPetPrice; 
 
         }
+
+        public int getPrice()
+        {
+            return Convert.ToInt32(basePrice + Math.Ceiling(basePrice * multiplierPetPrice));
+        }
         public void Print()
         {
-            Console.WriteLine("Animal with body type " + bodyType + " , multiplier " + multiplierPetPrice + " , base price " + basePriceMoney + "and shiny is " + isShiny);
+            Console.WriteLine("Animal with body type " + bodyType + " , multiplier " + multiplierPetPrice + " , base price " + basePrice + ", shiny is " + isShiny +" and total price is "+getPrice());
         }
     }
 }

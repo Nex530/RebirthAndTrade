@@ -1,0 +1,15 @@
+D:\Programming\RebirthAndTrade\RebirthAndTrade\bin\Debug\net10.0\RebirthAndTrade.exe
+D:\Programming\RebirthAndTrade\RebirthAndTrade\bin\Debug\net10.0\RebirthAndTrade.deps.json
+D:\Programming\RebirthAndTrade\RebirthAndTrade\bin\Debug\net10.0\RebirthAndTrade.runtimeconfig.json
+D:\Programming\RebirthAndTrade\RebirthAndTrade\bin\Debug\net10.0\RebirthAndTrade.dll
+D:\Programming\RebirthAndTrade\RebirthAndTrade\bin\Debug\net10.0\RebirthAndTrade.pdb
+D:\Programming\RebirthAndTrade\RebirthAndTrade\obj\Debug\net10.0\RebirthAndTrade.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programming\RebirthAndTrade\RebirthAndTrade\obj\Debug\net10.0\RebirthAndTrade.AssemblyInfoInputs.cache
+D:\Programming\RebirthAndTrade\RebirthAndTrade\obj\Debug\net10.0\RebirthAndTrade.AssemblyInfo.cs
+D:\Programming\RebirthAndTrade\RebirthAndTrade\obj\Debug\net10.0\RebirthAndTrade.csproj.CoreCompileInputs.cache
+D:\Programming\RebirthAndTrade\RebirthAndTrade\obj\Debug\net10.0\RebirthAndTrade.dll
+D:\Programming\RebirthAndTrade\RebirthAndTrade\obj\Debug\net10.0\refint\RebirthAndTrade.dll
+D:\Programming\RebirthAndTrade\RebirthAndTrade\obj\Debug\net10.0\RebirthAndTrade.pdb
+D:\Programming\RebirthAndTrade\RebirthAndTrade\obj\Debug\net10.0\RebirthAndTrade.genruntimeconfig.cache
+D:\Programming\RebirthAndTrade\RebirthAndTrade\obj\Debug\net10.0\ref\RebirthAndTrade.dll
+D:\Programming\RebirthAndTrade\RebirthAndTrade\obj\Debug\net10.0\RebirthAndTrade.sourcelink.json
