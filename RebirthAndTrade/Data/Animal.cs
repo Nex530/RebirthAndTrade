@@ -10,8 +10,6 @@ namespace RebirthAndTrade.Data
     }
     public class Animal
     {
-        //private double multiplierM = 1;
-        //private double multiplierD = 1;
         private double multiplierPetPrice = 1;
         private AnimalBodyType bodyType;
         private int basePrice;

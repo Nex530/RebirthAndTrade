@@ -10,7 +10,9 @@ namespace RebirthAndTrade.Data
 
         static void Main(string[] args)
         {
-            Simulator.test1();
+            Simulator sim = new Simulator();
+            //sim.test1();
+           
         }
     }
 }

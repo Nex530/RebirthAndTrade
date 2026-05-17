@@ -7,7 +7,7 @@ using System.Text;
 
 namespace RebirthAndTrade.Logic
 {
-    public class Simulator
+    internal class Simulator
     {
         static List<Animal> animals = new List<Animal>();
         static List<Player> players = new List<Player>();
@@ -21,57 +21,87 @@ namespace RebirthAndTrade.Logic
             bool wantToTrade2 = wantToTrade(indexTrader2, indexTrader1);
             if (wantToTrade1 && wantToTrade2)
             {
-                Console.Write(players[indexTrader1].getName() + ". Which animals do you want to trade? Write the numbers: ");
-                List<string> choice1 = Console.ReadLine().Split(" ").ToList();//neka e viarno
-                List<int> choice1Indexes = new List<int>();
-                int trader1Price = 0;
-                foreach (string choice in choice1) 
+                List<string> choice1 = [""]; 
+                List<string> choice2 = [""];
+                while (choice1[0].ToLower() != "d" || choice2[0].ToLower() != "d")
                 {
-                    choice1Indexes.Add(int.Parse(choice));
-                    Animal currentAnimal = players[indexTrader1].GetAnimals()[int.Parse(choice)];
-                    trader1Price += currentAnimal.getPrice();
+                    Console.Write(players[indexTrader1].getName() + ". Which animals do you want to trade? Write the numbers(type d to decline): ");
+                    
+                    choice1 = Console.ReadLine().Split(" ").ToList();//neka e viarno
+                    if (choice1[0].ToLower() == "d")
+                    {
+                        break;
+                    }
+                    List<int> choice1Indexes = new List<int>();
+                    int trader1Price = 0;
+                    foreach (string choice in choice1)
+                    {
+                        choice1Indexes.Add((int.Parse(choice)) - 1);
+                        Animal currentAnimal = players[indexTrader1].GetAnimals()[int.Parse(choice) - 1];
+                        trader1Price += currentAnimal.getPrice();
+                    }
 
+                    Console.Write(players[indexTrader2].getName() + ". Which animals do you want to trade? Write the numbers(type d to decline): ");
+                    choice2 = Console.ReadLine().Split(" ").ToList();//neka e viarno
+                    if (choice2[0].ToLower() == "d")
+                    {
+                        break;
+                    }
+                    List<int> choice2Indexes = new List<int>();
+                    int trader2Price = 0;
+                    foreach (string choice in choice2)
+                    {
+                        choice2Indexes.Add((int.Parse(choice)) - 1);
+                        Animal currentAnimal = players[indexTrader2].GetAnimals()[int.Parse(choice) - 1];
+                        trader2Price += currentAnimal.getPrice();
+                    }
+                    int percentageDif = 100 - Convert.ToInt32(Math.Min(trader1Price, trader2Price) * 1.0 / Math.Max(trader1Price, trader2Price) * 100);
+                    //print na izbrani jivotni i ceni
+                    if (percentageDif > percentLimit)//da se dobavi da se pitat dali iskat trade-a
+                    {
+                        Console.WriteLine("Cannot trade due to value difference (" + percentageDif + "). Try again");
+                        Trade(indexTrader1, indexTrader2);
+                    }
+                    else
+                    {
+                        wantToTrade1 = wantToTrade(indexTrader1, indexTrader2);
+                        wantToTrade2 = wantToTrade(indexTrader2, indexTrader1);
+                        if (wantToTrade1 && wantToTrade2)
+                        {
+                            Purchase(indexTrader1, indexTrader2, choice1Indexes, choice2Indexes);
+                        }
+                    }
                 }
-
-                Console.Write(players[indexTrader2].getName() + ". Which animals do you want to trade? Write the numbers: ");
-                List<string> choice2 = Console.ReadLine().Split(" ").ToList();//neka e viarno
-                List<int> choice2Indexes = new List<int>();
-                int trader2Price = 0;
-                foreach (string choice in choice2)
-                {
-                    choice2Indexes.Add(int.Parse(choice));
-                    Animal currentAnimal = players[indexTrader2].GetAnimals()[int.Parse(choice)];
-                    trader2Price += currentAnimal.getPrice();
-                }
-                int percentageDif = 100 - Convert.ToInt32(Math.Min(trader1Price, trader2Price) / Math.Max(trader1Price, trader2Price) * 100);
-                //print na izbrani jivotni i ceni
-                if (percentageDif > percentLimit)//da se dobavi da se pitat dali iskat trade-a
-                {
-                    Console.WriteLine("Cannot trade due to value difference (" + percentageDif + "). Try again");
-                    Trade(indexTrader1, indexTrader2);
-                }
-                else
-                {
-                    Purchase(indexTrader1, indexTrader2, choice1Indexes, choice2Indexes);
-                }
-
             }
         }
 
-         private void Purchase(int indexTrader1, int indexTrader2, List<int> choice1Indexes, List<int> choice2Indexes)
+        private void Purchase(int indexTrader1, int indexTrader2, List<int> choice1Indexes, List<int> choice2Indexes)
         {
             List<Animal> animals1 = players[indexTrader1].GetAnimals();
             foreach (int currentindex in choice1Indexes) 
             {
                 players[indexTrader2].addAnimal(animals1[currentindex]);
-                players[indexTrader1].removeAnimal(currentindex);
+            }
+
+
+            int counter1 = 0;
+            foreach (int currentindex in choice1Indexes)
+            {
+                players[indexTrader1].removeAnimal(currentindex - counter1);
+                counter1++;
             }
 
             List<Animal> animals2 = players[indexTrader2].GetAnimals();
             foreach (int currentindex in choice2Indexes)
             {
                 players[indexTrader1].addAnimal(animals2[currentindex]);
-                players[indexTrader2].removeAnimal(currentindex);
+            }
+
+            int counter2 = 0;
+            foreach (int currentindex in choice2Indexes)
+            {
+                players[indexTrader2].removeAnimal(currentindex - counter2);
+                counter2++;
             }
             Console.WriteLine("Purchase successful.");
             players[indexTrader1].Print();
@@ -148,7 +178,7 @@ namespace RebirthAndTrade.Logic
             player1.Print();
             player2.Print();
 
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 20; i++)
             {
                 player1.Rebirth();
                 player1.Print();
@@ -156,7 +186,7 @@ namespace RebirthAndTrade.Logic
             }
         }
 
-        public static void test1()
+        public void test1()//trade test
         {
             Player player1 = new Player("HogwartsMaster11", 100);
             Player player2 = new Player("SpellCaster9000", 500);
@@ -186,6 +216,14 @@ namespace RebirthAndTrade.Logic
 
             player1.Print();
             player2.Print();
+
+            //printOwnedAnimals(0);
+
+            Trade(0, 1);
+        }
+        public void test2()
+        {
+
         }
     }
 }
